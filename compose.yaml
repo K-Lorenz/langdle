@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: langdle-db
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: langdle
+      POSTGRES_PASSWORD: langdle
+      POSTGRES_DB: langdle
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U langdle -d langdle']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
