@@ -11,22 +11,42 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"db:start": "docker compose up",
+		"docker:up": "docker compose --profile app up --build -d",
+		"docker:up:cn": "docker compose --profile app --profile conceptnet up --build -d",
+		"docker:conceptnet": "docker compose --profile conceptnet up --build -d conceptnet",
+		"docker:conceptnet:import": "docker compose --profile import run --rm --build conceptnet-import",
+		"docker:down": "docker compose --profile app --profile conceptnet down",
 		"db:push": "drizzle-kit push",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
-		"db:studio": "drizzle-kit studio"
+		"db:studio": "drizzle-kit studio",
+		"db:seed": "tsx scripts/seed.ts",
+		"db:embeddings": "python scripts/embeddings/compute_vocab_embeddings.py",
+		"docker:embeddings": "docker compose --profile embeddings run --rm --build embeddings",
+		"db:seed:cluster-demo": "tsx scripts/seed-cluster-demo.ts",
+		"test:vocab-15k": "tsx scripts/bench-vocab-15k.ts",
+		"db:import:kaikki": "tsx scripts/import-kaikki-german.ts",
+		"check:calibration": "tsx scripts/calibration-check.ts"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.5.4",
 		"@sveltejs/kit": "^2.57.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@tailwindcss/vite": "^4.2.4",
+		"@types/d3": "^7.4.3",
 		"@types/node": "^22",
 		"drizzle-kit": "^0.31.10",
 		"drizzle-orm": "^0.45.2",
 		"postgres": "^3.4.9",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
+		"tailwindcss": "^4.2.4",
+		"tsx": "^4.21.0",
 		"typescript": "^6.0.2",
 		"vite": "^8.0.7"
+	},
+	"dependencies": {
+		"d3": "^7.9.0",
+		"lucide-svelte": "^1.0.1"
 	}
 }

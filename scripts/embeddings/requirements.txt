@@ -1,0 +1,4 @@
+# Einmal-Job: Vokabular-Embeddings (CPU ok für mittlere Listen). PyTorch kommt transitiv mit;
+# im Docker-Image wird vorher explizit die CPU-Wheel installiert (siehe docker/embeddings/Dockerfile).
+sentence-transformers>=3.0.0
+psycopg[binary]>=3.1.0

@@ -1,0 +1,23 @@
+Kaikki.org / Wiktionary — licensing reminder (not legal advice)
+
+Data source: https://kaikki.org/dictionary/German/
+German JSONL (example): https://kaikki.org/dictionary/German/kaikki.org-dictionary-German.jsonl
+
+Wiktionary content is available under:
+- Creative Commons Attribution-ShareAlike (CC-BY-SA), and/or
+- GNU Free Documentation License (GFDL)
+
+You must provide appropriate credit and comply with share-alike / GFDL terms
+when distributing derivative works, as required by those licenses.
+
+Tagging in this app (topics vs. categories) follows Wiktextract fields:
+  - topics  → “Senses by topic” on Kaikki
+  - categories → Wiktionary category links (Kaikki splits some into “place” vs “other” in the UI; both are stored as categories here unless you add a separate mapping).
+
+Suggested credit line (adapt as needed for Friendshub / Langdle “About” or credits):
+  German word data derived from Wiktionary via Kaikki.org (CC-BY-SA / GFDL).
+  https://kaikki.org/dictionary/German/
+
+Academic citation for Wiktextract (if you use the extraction in research):
+  Tatu Ylonen: Wiktextract: Wiktionary as Machine-Readable Structured Data,
+  LREC 2022. Linking to https://kaikki.org is appreciated.

@@ -1,27 +1,23 @@
+<script lang="ts">
+	import { Globe } from '$lib/icons';
+	import GameBoard from '$lib/components/GameBoard.svelte';
+	import { de } from '$lib/strings/de';
+
+	let { data } = $props();
+</script>
+
 <svelte:head>
-	<title>Langdle</title>
+	<title>{de.meta.siteTitle}</title>
 </svelte:head>
 
-<main>
-	<h1>Langdle</h1>
-	<p>Daily semantic word game foundation is set up.</p>
-	<p>Next milestone: interactive wordcloud and guess flow.</p>
-</main>
-
-<style>
-	main {
-		max-width: 40rem;
-		margin: 0 auto;
-		padding: 3rem 1rem;
-		font-family: system-ui, sans-serif;
-	}
-
-	h1 {
-		margin-bottom: 0.75rem;
-	}
-
-	p {
-		line-height: 1.5;
-		color: #3a3a3a;
-	}
-</style>
+{#if !data.puzzle}
+	<div class="flex flex-1 flex-col items-center justify-center gap-2 px-5 text-center">
+		<Globe size={32} class="text-muted" />
+		<p class="text-muted text-sm">{de.api.keinRaetselHeute}</p>
+		<p class="text-muted/60 text-xs">Schau später nochmal rein.</p>
+	</div>
+{:else}
+	<div class="flex min-h-0 flex-1 flex-col overflow-hidden">
+		<GameBoard puzzle={data.puzzle} vocabulary={data.vocabulary} />
+	</div>
+{/if}

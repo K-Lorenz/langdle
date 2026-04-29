@@ -1,0 +1,2 @@
+# Download e.g. kaikki.org-dictionary-German.jsonl (~900MB) into this folder; do not commit.
+*.jsonl

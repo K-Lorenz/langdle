@@ -1,0 +1,20 @@
+node_modules
+build
+.svelte-kit
+.git
+.gitignore
+**/.DS_Store
+*.md
+!README.md
+.env
+.env.*
+!.env.example
+data/kaikki/*.jsonl
+# Groß — nur für lokales rconceptnet / Import, nicht für das App-Image nötig
+data/conceptnet/
+.vscode
+.cursor
+mcps
+terminals
+coverage
+drizzle/meta

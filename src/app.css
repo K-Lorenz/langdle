@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+	--color-bg: #0a061f;
+	--color-text: #dbd7f7;
+	--color-primary: #9186e6;
+	--color-secondary: #8d1d7a;
+	--color-accent: #dc55a1;
+	--color-surface: #110c2e;
+	--color-border: #1e1845;
+	--color-muted: #6b638f;
+	--temp-cold: #6b638f;
+	--temp-warm: #9186e6;
+	--temp-hot: #dc55a1;
+	--color-heat-cool: rgb(26 38 62);
+	--color-heat-mid: rgb(138 98 168);
+	--color-heat-hot: rgb(248 86 64);
+	--font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+	html {
+		background: #0a061f;
+		color: #dbd7f7;
+		font-family: var(--font-sans);
+		line-height: 1.5;
+	}
+	body {
+		margin: 0;
+	}
+}
+
+@layer components {
+	.guess-feedback-row {
+		transition:
+			transform 0.35s ease,
+			box-shadow 0.35s ease,
+			filter 0.35s ease;
+	}
+
+	.guess-feedback-row--pulse {
+		animation: guess-feedback-pop 0.78s cubic-bezier(0.34, 1.36, 0.64, 1) forwards;
+		position: relative;
+		z-index: 2;
+		box-shadow: 0 10px 32px rgba(220, 85, 161, 0.22);
+		transform-origin: center top;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.guess-feedback-row--pulse {
+			animation: none;
+			transform: translateY(-1px);
+			box-shadow: 0 4px 16px rgba(220, 85, 161, 0.15);
+		}
+	}
+}
+
+@keyframes guess-feedback-pop {
+	0% {
+		transform: scale(1) translateY(0);
+		filter: brightness(1);
+	}
+	18% {
+		transform: scale(1.09) translateY(-6px);
+		filter: brightness(1.12);
+	}
+	45% {
+		transform: scale(1.05) translateY(-3px);
+	}
+	100% {
+		transform: scale(1.03) translateY(-2px);
+		filter: brightness(1.05);
+	}
+}

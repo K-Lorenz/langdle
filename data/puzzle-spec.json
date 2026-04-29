@@ -1,0 +1,9 @@
+{
+	"targetGerman": "danke",
+	"targetForeign": "kiitos",
+	"languageIso639_3": "fin",
+	"gridSize": 50,
+	"lexicalDedupeMax": 0.82,
+	"guessPool": "same_pos",
+	"extraVocabularyLemmas": []
+}

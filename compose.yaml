@@ -16,5 +16,63 @@ services:
       retries: 10
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  app:
+    profiles: [app]
+    build: .
+    container_name: langdle-app
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://langdle:langdle@db:5432/langdle
+      HOST: 0.0.0.0
+      PORT: '3000'
+      NODE_ENV: production
+      RCONCEPTNET_URL: ${RCONCEPTNET_URL:-}
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-http://localhost:3000}
+    depends_on:
+      db:
+        condition: service_healthy
+
+  conceptnet:
+    profiles: [conceptnet]
+    build: ./docker/rconceptnet
+    container_name: langdle-conceptnet
+    restart: unless-stopped
+    ports:
+      - '3043:3043'
+    environment:
+      CONCEPTNET_DB_PATH: /data/conceptnet.sqlite
+      CONCEPTNET_LISTEN: 0.0.0.0:3043
+    volumes:
+      - ./data/conceptnet:/data
+
+  # Einmalig: Assertions → SQLite (Dateien unter ./data/conceptnet/)
+  conceptnet-import:
+    profiles: [import]
+    build: ./docker/rconceptnet
+    volumes:
+      - ./data/conceptnet:/data
+      - ./docker/rconceptnet/import-entrypoint.sh:/import-entrypoint.sh:ro
+    entrypoint: ['/bin/sh', '/import-entrypoint.sh']
+
+  # Einmalig: Sentence-Transformers → Spalten embedding / embedding_model in Postgres
+  embeddings:
+    profiles: [embeddings]
+    build:
+      context: .
+      dockerfile: docker/embeddings/Dockerfile
+    environment:
+      DATABASE_URL: postgres://langdle:langdle@db:5432/langdle
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-paraphrase-multilingual-MiniLM-L12-v2}
+      EMBEDDING_BATCH: ${EMBEDDING_BATCH:-64}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - hf_embedding_cache:/cache/huggingface
+
 volumes:
   pgdata:
+  hf_embedding_cache:
